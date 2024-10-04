@@ -1,5 +1,4 @@
 # ASCEND
-***
 
 In molecular biology, gene expression serves as a crucial indicator of cellular function and health. Alterations in these expression patterns, often influenced by epigenetic changes such as DNA methylation, can signify the presence of various diseases, including cancer. As our understanding of these complex biological processes deepens, the need for sophisticated analytical tools becomes increasingly apparent.
 
@@ -17,11 +16,9 @@ In conclusion, ASCEND represents a new approach in cancer research, integrating 
 
 
 # Installation
-***
 ASCEND has not yet been incorporated into a front-end user interface to be used. Thus, the software can be run by utilizing the code from this repository. In the near future, however, ASCEND's GUI will be incorporated into a GUI that can be installed and used as a web application.
 
 # Getting Started
-***
 ### Running the Software
 Once this repository has been downloaded to your local machine, navigate to the AtomIDE or your preferred IDE of choice. Ensure that Python has been installed. Navigate to the code folder and then, the cleaned_pipelines folder. In this folder, the subprocesses of the ASCEND software have been broken down for you to run.
 
@@ -30,10 +27,8 @@ In order to run the model, you will need gene expression data in the format of a
 
 
 # Authors
-***
 This project was developed by Jay Ananth and Dr. Alper Uzun in the Uzun Lab at Brown University.
 
 
 # Contact
-***
 Reach out to alper_uzun@brown.edu with any questions.
