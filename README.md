@@ -16,14 +16,14 @@ In conclusion, ASCEND represents a new approach in cancer research, integrating 
 
 
 # Installation
-ASCEND has not yet been incorporated into a front-end user interface to be used. Thus, the software can be run by utilizing the code from this repository. In the near future, however, ASCEND's GUI will be incorporated into a GUI that can be installed and used as a web application.
+ASCEND has not yet been incorporated into a front-end user interface to be used. Thus, the software can be run by utilizing the code from this repository. In the near future, however, ASCEND's GUI will be incorporated into a GUI that can be installed and used as a web application. This will allow ASCEND to be run with a single line of code, activating a user interface that is easy for all users, regardless of their computational background.
 
 # Getting Started
 ### Running the Software
 Once this repository has been downloaded to your local machine, navigate to the AtomIDE or your preferred IDE of choice. Ensure that Python has been installed. Navigate to the code folder and then, the cleaned_pipelines folder. In this folder, the subprocesses of the ASCEND software have been broken down for you to run.
 
 ### Input Data
-In order to run the model, you will need gene expression data in the format of a csv file. If this data is from the TCGA database, then
+In order to run the model, you will need gene expression data in the format of a csv file. If this data is from the TCGA database, then you can provide the manifest file for your custom repository, as long as the data is in a tsv or csv format.
 
 
 # Authors
