@@ -22,7 +22,7 @@ def filter_gene(gene):
         "Y_RNA" in gene or
         "-" in gene or
         "snoU" in gene or
-        (any(char.isdigit() for char in gene) and len(gene) >= 10) or
+        (any(char.isdigit() for char in gene) and len(gene) >= 10) or # Long sets of digits among MiRNA genes, for example: avoid inconsistencies
         gene.startswith("MIR") or
         gene.startswith("RNU") or
         gene.startswith("SNORD") or
@@ -33,6 +33,7 @@ def filter_gene(gene):
         gene.startswith("RNA18S") or
         gene.startswith("RNA5S") or
         gene in pseudogenes):
+        # Add gene constraints as necessary
         return False
     return True
 
@@ -72,3 +73,7 @@ ge_filtered = ge[list(filtered_df_unique['approved_columns'])]
 ge_filtered['target'] = ge['target']
 
 ge_filtered.to_csv(getcwd() + '/data/processed/combined_model_input_dfs/ge_filtered.csv', index=False)
+
+
+# Create methods and materials: write out detailed steps and components
+# Examples: Python version 3.8.3, modules ____, etc.

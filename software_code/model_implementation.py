@@ -47,9 +47,11 @@ for idx in df1['Unnamed: 0']:
 df1['gene_id'] = gene_ids
 df1.to_csv(getcwd() + '/results/raw/abs_gene_coeffs_with_genes.csv')
 
-
-
-
+# Potentially compare 60,660 genes to subset selected for model accuracy
+import pandas as pd
+from os import getcwd
+pd.read_csv(getcwd() + '/results/raw/filtered_ge/abs_gene_coeffs_with_genes.csv')
+pd.read_csv(getcwd() + '/results/raw/filtered_ge/biomarker_methyl_imp_scores.csv')
 
 meth = pd.read_csv(getcwd() + '/data/processed/combined_dfs/meth.csv').drop(['target'], axis=1)
 ge_biomarkers = ge[['42182', '24875', '7216', '52254', '13927']]
