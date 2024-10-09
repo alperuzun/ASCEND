@@ -16,7 +16,7 @@ In conclusion, ASCEND represents a new approach in cancer research, integrating 
 
 
 # Installation
-ASCEND has not yet been incorporated into a front-end user interface to be used. Thus, the software can be run by utilizing the code from this repository. In the near future, however, ASCEND's GUI will be incorporated into a GUI that can be installed and used as a web application. This will allow ASCEND to be run with a single line of code, activating a user interface that is easy for all users, regardless of their computational background.
+ASCEND has not yet been incorporated into a front-end user interface to be used. Thus, the software can be run by utilizing the code from this repository. In the near future, however, ASCEND's GUI will be incorporated into a GUI that can be installed and used as a web application. This will allow ASCEND to be run with a single line of code, activating a user interface that is easy for all users, regardless of their comput
 
 # Getting Started
 ### Running the Software
