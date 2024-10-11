@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Basic Web Application</title>
+    <style>
+       body {
+           font-family: Arial, sans-serif;
+           margin: 0;
+           padding: 0;
+           background-color: #33588f;
+       }
+       element {
+         padding-top: 20px;
+       }
+       .upload-button {
+           background-color: #70a9c9;
+           color: white;
+           padding: 10px 20px;
+           border: none;
+           border-radius: 5px;
+           cursor: pointer;
+           font-size: 16px;
+       }
+
+       .upload-button:hover {
+           background-color: #000435;
+       }
+
+       input[type="file"] {
+           display: none;
+       }
+       header {
+           background-color: #33588f;
+           color: white;
+           padding: 10px 0;
+           text-align: center;
+       }
+       nav {
+           background-color: #333;
+           padding: 10px;
+       }
+       nav a {
+           color: white;
+           padding: 14px 20px;
+           text-decoration: none;
+           text-align: center;
+           display: inline-block;
+       }
+       nav a:hover {
+           background-color: #ddd;
+           color: black;
+       }
+       section {
+           padding: 20px;
+           background-color: #33588f;
+           text-align: center; /* Center the text */
+           color: white; /* White text */
+       }
+       h2 {
+           font-size: 20px;
+       }
+       .ascend {
+           font-size: 70px;
+           font-weight: bold;
+           display: inline-block;
+           vertical-align: middle; /* Align text with the logo */
+       }
+       .logo {
+           display: inline-block;
+           vertical-align: middle; /* Align logo with text */
+           margin-left: 10px; /* Add space between logo and text */
+       }
+
+       footer {
+           text-align: center;
+           padding: 10px;
+           background-color: #333;
+           color: white;
+           position: fixed;
+           bottom: 0;
+           width: 100%;
+       }
+       .form-container {
+           max-width: 400px;
+           margin: 0 auto;
+           padding: 20px;
+           background-color: #33588f;
+           border-radius: 5px;
+       }
+       .form-container input[type="text"],
+       .form-container input[type="email"],
+       .form-container input[type="password"] {
+           width: 100%;
+           padding: 12px;
+           margin: 8px 0;
+           display: inline-block;
+           border: 1px solid #ccc;
+           border-radius: 4px;
+           box-sizing: border-box;
+       }
+       .form-container input[type="submit"] {
+           width: 100%;
+           background-color: #33588f;
+           color: white;
+           padding: 14px 20px;
+           border: none;
+           border-radius: 4px;
+           cursor: pointer;
+       }
+       .form-container input[type="submit"]:hover {
+           background-color: #33588f;
+       }
+   </style>
+</head>
+<body>
+
+    <nav>
+        <a href="{{ url_for('index') }}">
+            <img src="{{ url_for('static', filename='ASCEND_Logo.png') }}" alt="ASCEND Logo" class="logo" width="50" height="50">
+        </a>
+        <a href="{{ url_for('how_to_use') }}">How to Use?</a>
+        <a href="{{ url_for('how_works') }}">How ASCEND Works</a>
+        <a href="{{ url_for('contact') }}">Contact</a>
+    </nav>
+
+
+    <section id="home">
+        <div style="padding: 150px">
+
+            <h2>Welcome to...<br>
+                <img src="{{ url_for('static', filename='ASCEND_Logo.png') }}" alt="ASCEND Logo" class="logo" width="90" height="90">
+                <span class="ascend">ASCEND</span>
+            </h2>
+            <p>Upload a CSV file of gene expression data or a manifest text file from TCGA to get started.</p>
+
+            <div class="form-container">
+                <form id="csv-upload-form" enctype="multipart/form-data">
+                    <label for="file-upload-csv" class="upload-button">Upload CSV</label>
+                    <input type="file" id="file-upload-csv" name="file" accept=".csv">
+                </form>
+            </div>
+
+            <div class="form-container">
+                <form id="manifest-upload-form" enctype="multipart/form-data">
+                    <label for="file-upload-manifest" class="upload-button">Upload Manifest</label>
+                    <input type="file" id="file-upload-manifest" name="file" accept=".txt">
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; ASCEND. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to handle file upload
+        function uploadFile(form, fileInput) {
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                fileInput.value = ''; // Clear the file input
+            })
+            .catch(error => {
+                alert('An error occurred: ' + error.message);
+            });
+        }
+
+        // Event listeners for file inputs
+        document.getElementById('file-upload-csv').addEventListener('change', function() {
+            uploadFile(document.getElementById('csv-upload-form'), this);
+        });
+
+        document.getElementById('file-upload-manifest').addEventListener('change', function() {
+            uploadFile(document.getElementById('manifest-upload-form'), this);
+        });
+    </script>
+
+</body>
+</html>
