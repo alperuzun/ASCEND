@@ -35,19 +35,48 @@ def contact():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    if 'file' not in request.files:
-        return jsonify({'message': 'No file part'}), 400
+    try:
+        if 'file' not in request.files:
+            return jsonify({'error': 'No file part'}), 400
 
-    file = request.files['file']
-    if file.filename == '':
-        return jsonify({'message': 'No selected file'}), 400
+        file = request.files['file']
 
-    if file and allowed_file(file.filename):
-        # Save the file to the upload folder
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
-        return jsonify({'message': 'File successfully uploaded'}), 200
-    else:
-        return jsonify({'message': 'File not allowed'}), 400
+        if file.filename == '':
+            return jsonify({'error': 'No selected file'}), 400
+
+        if file and allowed_file(file.filename):
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+            file.save(filepath)
+
+            # Run the pipeline
+            result = run_pipeline(filepath)
+
+            return jsonify({'message': 'File successfully uploaded', 'result': result}), 200
+
+        return jsonify({'error': 'File not allowed'}), 400
+
+    except Exception as e:
+        # Return JSON error message on exception
+        return jsonify({'error': f'An error occurred: {str(e)}'}), 500
+
+# Route to display the result
+@app.route('/result')
+def result():
+    output = request.args.get('output', 'No result available')
+    return render_template('result.html', output=output)
+
+# Example pipeline function that processes the uploaded file
+def run_pipeline(filepath):
+    try:
+        # Example: Read the uploaded CSV and return the sum of a numeric column
+        df = pd.read_csv(filepath)
+        result = df.sum(numeric_only=True).to_string()
+        return result
+    except Exception as e:
+        # Return the error message to be shown in the frontend
+        return f"Error processing file: {str(e)}"
+
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Run the Flask app
+    app.run(host="0.0.0.0", port=3000, debug=True)
