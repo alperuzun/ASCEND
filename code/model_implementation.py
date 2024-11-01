@@ -10,7 +10,7 @@ from sklearn.ensemble import ExtraTreesRegressor
 from sklearn.inspection import permutation_importance
 from sklearn.tree import DecisionTreeRegressor
 
-ge = pd.read_csv(getcwd() + '/data/processed/combined_dfs/ge.csv')
+ge = pd.read_csv(getcwd() + '/data/processed/combined_model_input_dfs/ge.csv')
 ge
 
 cancer_target = ge['target']
