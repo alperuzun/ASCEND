@@ -59,8 +59,15 @@ expression_levels = {
     cpg_sites[4]: 0.3    # CpG Site #3521 low-moderate
 }
 
-# Map expression levels to colors using a blue-to-red gradient
-node_colors = [f'rgba({255 * exp}, 0, {255 * (1 - exp)}, 0.8)' for exp in expression_levels.values()]
+# Define relative importance for CpG Sites for node sizes
+cpg_sizes = {
+    cpg_sites[0]: 20,  # Size for CpG Site #7737
+    cpg_sites[1]: 30,  # Size for CpG Site #10917
+    cpg_sites[2]: 40,  # Size for CpG Site #12986
+    cpg_sites[3]: 25,  # Size for CpG Site #86
+    cpg_sites[4]: 15   # Size for CpG Site #3521
+}
+default_gene_size = 30  # Default size for genes and the main node
 
 # Extract positions for Plotly
 edge_x = []
@@ -96,20 +103,28 @@ dashed_trace = go.Scatter(
     mode='lines'
 )
 
-# Draw nodes with intensity-based colors
+# Draw nodes with intensity-based colors and varying sizes for CpG sites
 node_x = []
 node_y = []
 node_label_text = []
 node_hover_info = []
+node_sizes = []
+node_shapes = []
 for node in G.nodes():
     x, y = pos[node]
     node_x.append(x)
     node_y.append(y)
     node_label_text.append(node)
+
+    # Set hover information with line breaks
     if node == 'Breast \n Cancer':
         node_hover_info.append('Cancer Origin Location: Breast<br>Severity Rank: 1')
     else:
         node_hover_info.append(f"{node}<br>Expression level: {expression_levels[node]:.1f}<br>Location: INSERT LOCATION")
+
+    # Set size and shape: use CpG-specific sizes for CpG sites, default size for genes
+    node_sizes.append(cpg_sizes[node] if node in cpg_sizes else default_gene_size)
+    node_shapes.append("triangle-up" if node in cpg_sizes else "circle")
 
 node_trace = go.Scatter(
     x=node_x, y=node_y,
@@ -124,7 +139,8 @@ node_trace = go.Scatter(
         cmin=0,  # Minimum expression value
         cmax=1,  # Maximum expression value
         color=list(expression_levels.values()),  # Use expression levels to color nodes
-        size=30,
+        size=node_sizes,  # Use varying sizes for CpG sites
+        symbol=node_shapes,  # Set symbols based on node type
         colorbar=dict(
             thickness=15,
             title='Expression Level',
@@ -148,3 +164,15 @@ fig = go.Figure(data=[edge_trace, dashed_trace, node_trace],
                 ))
 
 fig.show()
+
+
+# IMPROVEMENT OF DIAGRAM:
+# In case of no tissue correspondence (healthy or not), can standardize without control comparison
+### Most data will have GTex
+## Add pop-up upon click for more information about CpG Islands and Genes
+## Vary CpG sites based on size rather than color (because do not use expression level but rather importance score)
+## Can use triangles to represent CpG sites as well: helps users look at it as constant (easier size comparison)
+
+# Use different icon for breast cancer: something to stand out --> https://bioart.niaid.nih.gov/bioart/60
+# Include download button for diagram
+# Consider genomic locations (Exact): build 37 or 38 (according to ...)
