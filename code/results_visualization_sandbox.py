@@ -225,3 +225,28 @@ fig = go.Figure(data=[edge_trace, dashed_trace, node_trace],
                 ))
 
 fig.show()
+## In pop-up for cancer nodes, include information about where data came from (include ref link or self-report statement); include model information
+## Can use "CpG" with varying font sizes to represent rather than triangles
+#main_node.color == #FFBF00
+#Describe what feature connection score is: represent relative strength of connections
+# Important to include confidence score, based on: # patients (>30), model accuracy, etc.
+### Internally, do threshold analysis: comparison between 1500 and 30, 50, etc. (levels): apply to same dataset (1 cancer subset)
+##### Use confidence score NOT accuracy: acc could just randomly fluctuate/spike due to small size
+### Make it very clear what users need to upload
+
+## Dedicate specific folder to uploads: if folder has file, then start the script
+#### Once run, send file to another working directory: reset folder every run
+
+# Run-time troubleshooting:
+# option 1: users give emails and after results collection done, send results via emails
+# option 2: give them separate link, save link and it will be live in 30-35 min
+### Make link available for certain number of days, don't want forever
+
+# Small note on webapp, if want to do for yourself available on GitHub (only results; can include basic parameters)
+## Give them limited "playground" in terms of customizing paramaterization: if want to fully test, go to GitHub
+
+## Side idea: LLM for troubleshooting of confidence scores (future)
+
+# Include package with back-end methylation data that is installed with the app (comes with initial installation)
+
+# 1: web (servers), 2: download locally, 3: docker system (instantiate environment)

@@ -1,7 +1,9 @@
- from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, redirect, url_for, flash
 import os
+import time  # Simulating delay for the progress bar
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key'
 
 # Configure the upload folder
 UPLOAD_FOLDER = 'uploads'
@@ -35,48 +37,36 @@ def contact():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    try:
-        if 'file' not in request.files:
-            return jsonify({'error': 'No file part'}), 400
+    if 'file' not in request.files:
+        flash('No file part')
+        return redirect(url_for('index'))
 
-        file = request.files['file']
+    file = request.files['file']
+    if file.filename == '':
+        flash('No selected file')
+        return redirect(url_for('index'))
 
-        if file.filename == '':
-            return jsonify({'error': 'No selected file'}), 400
+    if file and allowed_file(file.filename):
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+        file.save(filepath)
 
-        if file and allowed_file(file.filename):
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-            file.save(filepath)
+        # Simulate a pipeline process
+        run_pipeline(filepath)
 
-            # Run the pipeline
-            result = run_pipeline(filepath)
+        return redirect(url_for('results'))
+    else:
+        flash('Invalid file type. Please upload a CSV or TXT file.')
+        return redirect(url_for('index'))
 
-            return jsonify({'message': 'File successfully uploaded', 'result': result}), 200
+@app.route('/results')
+def results():
+    return render_template('results.html')
 
-        return jsonify({'error': 'File not allowed'}), 400
-
-    except Exception as e:
-        # Return JSON error message on exception
-        return jsonify({'error': f'An error occurred: {str(e)}'}), 500
-
-# Route to display the result
-@app.route('/result')
-def result():
-    output = request.args.get('output', 'No result available')
-    return render_template('result.html', output=output)
-
-# Example pipeline function that processes the uploaded file
 def run_pipeline(filepath):
-    try:
-        # Example: Read the uploaded CSV and return the sum of a numeric column
-        df = pd.read_csv(filepath)
-        result = df.sum(numeric_only=True).to_string()
-        return result
-    except Exception as e:
-        # Return the error message to be shown in the frontend
-        return f"Error processing file: {str(e)}"
-
+    """ Simulate a pipeline action by adding a delay """
+    print(f"Processing file: {filepath}")
+    time.sleep(5)  # Simulate delay for processing
+    print(f"Processing complete for: {filepath}")
 
 if __name__ == "__main__":
-    # Run the Flask app
-    app.run(host="0.0.0.0", port=3000, debug=True)
+    app.run(debug=True)

@@ -395,3 +395,17 @@ ge_comb_df = pd.concat(ge_dfs.values(), axis=1, join='inner')
 ge_comb_df = ge_comb_df.transpose()[0:101]
 ge_comb_df['target'] = ge_target[0:101]
 ge_comb_df.to_csv(getcwd() + '/data/processed/combined_dfs/ge.csv', index=False)
+
+
+# time stamp-based uploads folder activation (choose latest)
+# move csv files to temporary directory once activation has been completed
+### can direct user to temporary folder
+
+# use pre-existing model to establish gene importances and CpG mapping
+## ADD TO DRIVE
+
+# Create community repository of models/algorithms: parameters shown with each model
+### Can use models that have already been created (give information about model: origin site, type, etc.)
+### Create quick sandbox for people who just want to play around with ASCEND
+### Make sure training set is de-identified (can put name of data collector or anonymous)
+### Comparison among common training set results (comparitive analysis among training sets)

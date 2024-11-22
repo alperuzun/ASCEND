@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #8f3333;
+            color: white;
+            text-align: center;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .progress-container {
+            margin: 50px auto;
+            width: 80%;
+            background-color: #ddd;
+            border-radius: 25px;
+            overflow: hidden;
+            height: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: #333;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+            transition: width 0.3s ease;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        #visualization-container {
+            display: none;
+            margin: 50px auto;
+        }
+        iframe {
+            width: 80%;
+            height: 500px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+  <nav>
+      <a href="{{ url_for('index') }}">
+          <img src="{{ url_for('static', filename='ASCEND_Logo.png') }}" alt="ASCEND Logo" class="logo" width="50" height="50">
+      </a>
+      <a href="{{ url_for('how_to_use') }}">How to Use?</a>
+      <a href="{{ url_for('how_works') }}">How ASCEND Works</a>
+      <a href="{{ url_for('contact') }}">Contact</a>
+  </nav>
+
+    <section>
+        <h2 id="header">Processing...</h2>
+        <p>You may switch tabs but please do not close this tab or turn off your device.</p>
+        <div class="progress-container">
+            <div class="progress-bar">0%</div>
+        </div>
+        <div id="visualization-container">
+            <h2>Cancer Signature Network Visualization</h2>
+            <img src="{{ url_for('static', filename='NetworkVisualization.png') }}" alt="ASCEND Logo" class="logo" width="700" height="500">
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; ASCEND. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const progressBar = document.querySelector(".progress-bar");
+            const header = document.getElementById("header");
+            const visualizationContainer = document.getElementById("visualization-container");
+            const visualizationFrame = document.getElementById("visualization-frame");
+            const increment = 1; // Increment percentage
+            const interval = 100; // Time interval in milliseconds
+
+            let progress = 0; // Initial progress
+
+            const progressInterval = setInterval(() => {
+                if (progress < 100) {
+                    progress += increment; // Increase progress
+                    progressBar.style.width = progress + "%"; // Update width
+                    progressBar.innerText = progress + "%"; // Update text
+                } else {
+                    clearInterval(progressInterval); // Stop interval when 100% is reached
+                    progressBar.parentElement.style.display = "none"; // Hide progress bar
+                    header.style.display = "none"; // Remove "Processing..."
+                    visualizationContainer.style.display = "block"; // Show visualization container
+                    visualizationFrame.src = "/plot"; // Load interactive plot from Flask
+                }
+            }, interval); // Update every 3 seconds
+        });
+    </script>
+</body>
+</html>
