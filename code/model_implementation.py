@@ -106,3 +106,7 @@ df_methyl_markers.to_csv(getcwd() + '/results/raw/biomarker_methyl_imp_scores.cs
 list(imp_methyl_markers.keys())
 gene_key[42182], gene_key[24875], gene_key[7216], gene_key[52254], gene_key[13927]
 meth
+
+
+import pandas as pd
+pd.read_csv()
