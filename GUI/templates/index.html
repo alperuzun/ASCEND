@@ -6,109 +6,256 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>ASCEND</title>
     <style>
+        /* General Styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #8f3333;
-        }
-        element {
-            padding-top: 20px;
-        }
-        .upload-button {
-            background-color: #c97070;
+            background: linear-gradient(120deg, #8f3333, #c97070);
             color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
         }
-        .upload-button:hover {
-            background-color: #350000;
+
+        header, nav, section, footer {
+            width: 100%;
         }
-        input[type="file"] {
-            display: none;
-        }
-        header {
-            background-color: #8f3333;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-        }
+
+        /* Navigation Bar */
         nav {
             background-color: #333;
             padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
         nav a {
             color: white;
-            padding: 14px 20px;
+            padding: 10px 20px;
             text-decoration: none;
             text-align: center;
-            display: inline-block;
+            font-weight: bold;
+            border-radius: 5px;
         }
+
         nav a:hover {
             background-color: #ddd;
             color: black;
         }
-        section {
-            padding: 20px;
+
+        nav a.logout-button {
+            background-color: #c97070;
+            font-size: 18px;
+        }
+
+        nav a.logout-button:hover {
             background-color: #8f3333;
-            text-align: center;
+        }
+
+        /* Sandbox Button */
+        .sandbox-container {
+            text-align: right;
+            margin: 10px 20px;
+        }
+
+        .sandbox-button {
+            background-color: #555;
             color: white;
-        }
-        h2 {
-            font-size: 20px;
-        }
-        .ascend {
-            font-size: 70px;
+            padding: 10px 20px;
+            font-size: 16px;
             font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
             display: inline-block;
-            vertical-align: middle;
+            transition: background 0.3s ease;
         }
-        .logo {
+
+        .sandbox-button:hover {
+            background-color: #777;
+        }
+
+
+        /* Section Styles */
+        section {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        h2 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 20px auto;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Custom Upload Button */
+        .upload-container {
+            margin: 50px 0;
+        }
+
+        .custom-upload-button {
+            background: linear-gradient(90deg, #350000, #8f3333);
+            color: white;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background 0.2s ease;
+        }
+
+        .custom-upload-button:hover {
+            background: linear-gradient(90deg, #8f3333, #350000);
+            transform: scale(1.05);
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        select {
+            background-color: white;
+            color: black;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        select:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        /* Info Icon */
+        .info-icon {
             display: inline-block;
-            vertical-align: middle;
-            margin-left: 10px;
+            font-size: 14px;
+            width: 18px;
+            height: 18px;
+            background-color: #fff;
+            color: #333;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 18px;
+            margin-left: 5px;
+            cursor: pointer;
+            position: relative;
         }
+
+        .info-icon:hover::after {
+            content: attr(data-info);
+            position: absolute;
+            top: 25px;
+            left: -10px;
+            background-color: #fff;
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            white-space: nowrap;
+        }
+
+        /* Footer */
         footer {
             text-align: center;
-            padding: 10px;
+            padding: 5px;
             background-color: #333;
             color: white;
+            font-size: 12px;
             position: fixed;
             bottom: 0;
             width: 100%;
+            z-index: 100;
+        }
+
+        /* Prevent footer overlap */
+        #home {
+            padding-bottom: 60px; /* Space for footer */
         }
     </style>
 </head>
 <body>
     <nav>
-        <a href="{{ url_for('index') }}">
-            <img src="{{ url_for('static', filename='ASCEND_Logo.png') }}" alt="ASCEND Logo" class="logo" width="50" height="50">
-        </a>
-        <a href="{{ url_for('how_to_use') }}">How to Use?</a>
-        <a href="{{ url_for('how_works') }}">How ASCEND Works</a>
-        <a href="{{ url_for('contact') }}">Contact</a>
+        <div>
+            <a href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='ASCEND_Logo.png') }}" alt="ASCEND Logo" class="logo" width="50" height="50">
+            </a>
+            <a href="{{ url_for('how_to_use') }}">How to Use?</a>
+            <a href="{{ url_for('how_works') }}">How ASCEND Works</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+        </div>
+        <a href="{{ url_for('logout') }}" class="logout-button">Log Out</a>
     </nav>
 
+    <div class="sandbox-container">
+        <a href="{{ url_for('results') }}" class="sandbox-button">Sandbox</a>
+    </div>
+
     <section id="home">
-        <div style="padding: 150px">
-            <h2>Welcome to...<br>
-                <img src="{{ url_for('static', filename='ASCEND_Logo.png') }}" alt="ASCEND Logo" class="logo" width="90" height="90">
-                <span class="ascend">ASCEND</span>
-            </h2>
-            <p>Upload a CSV file (Sample Format) of gene expression data with specific target cancer(s). Choose your target cancer accordingly based on the uploaded expression data.</p>
-            <br>
-            <form id="csv-upload-form" action="/upload" method="POST" enctype="multipart/form-data">
-                <label for="file-upload-csv" class="upload-button">Upload CSV</label>
-                <input type="file" id="file-upload-csv" name="file" accept=".csv" onchange="this.form.submit();">
-            </form>
+        <div>
+            <h2>Welcome to ASCEND</h2>
+            <p>Upload a CSV file of gene expression data with specific target cancer(s). Choose your analysis parameters before uploading.</p>
+
+            <div class="upload-container">
+                <form id="csv-upload-form" action="/upload" method="POST" enctype="multipart/form-data">
+                    <label for="file-upload" class="custom-upload-button">Upload CSV</label>
+                    <input type="file" id="file-upload" name="file" accept=".csv" class="file-input" onchange="document.getElementById('csv-upload-form').submit();">
+                </form>
+            </div>
+
+            <div class="form-group">
+                <p>Please select the cancer type you are analyzing:
+                    <span class="info-icon" data-info="Choose a cancer type that corresponds to the data you uploaded.">i</span>
+                </p>
+                <select id="cancer-type-dropdown" name="cancer_type">
+                    <option value="breast">Breast Cancer</option>
+                    <option value="lung">Lung Cancer</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <p>Choose the analysis type:
+                    <span class="info-icon" data-info="Select the type of analysis to perform, such as biomarker gene analysis or methylation analysis.">i</span>
+                </p>
+                <select id="analysis-type-dropdown" name="analysis_type">
+                    <option value="expression">Biomarker Gene Analysis</option>
+                    <option value="methylation">DNA Methylation Analysis</option>
+                    <option value="combined">Combined Analysis</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <p>Select your desired biomarker gene cutoff metric:
+                    <span class="info-icon" data-info="Define the metric for determining the cutoff for number of biomarker genes, such as percentage or number of genes.">i</span>
+                </p>
+                <select id="cutoff-metric-dropdown" name="cutoff_metric">
+                    <option value="percentage">Percentage</option>
+                    <option value="visual">Graphical Visualization</option>
+                </select>
+            </div>
+
         </div>
     </section>
- <!-- Add dropdown for cancer types. Have other option but need to provide on data for this. -->
+
     <footer>
-        <p>&copy; ASCEND. All rights reserved.</p>
+        <p>&copy; 2025 ASCEND. All rights reserved.</p>
     </footer>
 </body>
 </html>

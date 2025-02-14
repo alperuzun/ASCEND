@@ -4,44 +4,141 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>How to Use?</title>
+    <title>How ASCEND Works</title>
     <style>
-        /* Include the same styles here, or you can link to a separate CSS file */
+        /* General Styles */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #8f3333;
+            background-color: #1f1f1f;
+            color: #f5f5f5;
         }
+
+        /* Navigation */
         nav {
-            background-color: #333;
-            padding: 10px;
+            background-color: #282828;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
         nav a {
-            color: white;
-            padding: 14px 20px;
             text-decoration: none;
-            text-align: center;
-            display: inline-block;
-        }
-        nav a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-        section {
-            padding: 20px;
-            background-color: #8f3333;
-            text-align: center;
             color: white;
+            font-size: 16px;
+            padding: 10px 15px;
         }
+
+        nav a:hover {
+            background-color: #444;
+            border-radius: 5px;
+        }
+
+        nav img {
+            width: 50px;
+            height: 50px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 10%;
+            background: #8f3333;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #ddd;
+        }
+
+        /* Workflow Section */
+        .workflow-container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .step-box {
+            width: 80%;
+            padding: 20px;
+            margin: 10px 0;
+            background-color: #282828;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .step-box:hover {
+            background-color: #444;
+        }
+
+        .step-box h3 {
+            font-size: 22px;
+            margin: 0;
+            color: #FFFFF;
+        }
+
+        .step-content {
+            display: none;
+            margin-top: 10px;
+            font-size: 16px;
+            color: #ccc;
+        }
+
+        .step-content img {
+            width: 60px;
+            height: 60px;
+            margin-top: 10px;
+        }
+
+        /* Call-to-Action */
+        .cta-section {
+            text-align: center;
+            padding: 40px 10%;
+            background: #8f3333;
+            margin-top: 40px;
+        }
+
+        .cta-section h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .cta-section button {
+            background-color: #FFFFF;
+            color: #1f1f1f;
+            padding: 15px 30px;
+            border: none;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .cta-section button:hover {
+            background-color: #4ca9c9;
+        }
+
+        /* Footer */
         footer {
             text-align: center;
-            padding: 10px;
-            background-color: #333;
+            padding: 15px;
+            background-color: #282828;
             color: white;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
         }
     </style>
 </head>
@@ -49,24 +146,88 @@
 
     <nav>
         <a href="{{ url_for('index') }}">
-            <img src="{{ url_for('static', filename='ASCEND_Logo.png') }}" alt="ASCEND Logo" class="logo" width="50" height="50">
+            <img src="{{ url_for('static', filename='ASCEND_Logo.png') }}" alt="ASCEND Logo">
         </a>
-        <a href="{{ url_for('how_to_use') }}">How to Use?</a>
-        <a href="{{ url_for('how_works') }}">How ASCEND Works</a>
-        <a href="{{ url_for('contact') }}">Contact</a>
+        <div>
+            <a href="{{ url_for('how_to_use') }}">How to Use?</a>
+            <a href="{{ url_for('how_works') }}">How ASCEND Works</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+        </div>
     </nav>
 
-    <section>
-        <h2>ASCEND Workflow</h2>
-        <img src="{{ url_for('static', filename='ASCEND_Workflow.jpg') }}" alt="ASCEND Logo" class="logo" width="680" height="590">
-        <p>
-          You can visit the GitHub (<a href="https://github.com/alperuzun/ASCEND">github.com/alperuzun/ASCEND</a>) for more about ASCEND and how it works.
-        </p>
+    <section class="hero">
+        <h1>How ASCEND Works</h1>
+        <p>Click on each step to learn more about ASCEND's workflow.</p>
+    </section>
+
+    <div class="workflow-container">
+
+        <div class="step-box" onclick="toggleStep(1)">
+            <h3>Step 1: Upload Your Data</h3>
+            <div class="step-content" id="step-1">
+                <p>Choose a CSV file containing gene expression data from the TCGA database.</p>
+                <img src="{{ url_for('static', filename='upload_icon.png') }}" alt="Upload Icon">
+            </div>
+        </div>
+
+        <div class="step-box" onclick="toggleStep(2)">
+            <h3>Step 2: Select Cancer Type</h3>
+            <div class="step-content" id="step-2">
+                <p>Pick a cancer type (e.g., breast, lung) for biomarker identification.</p>
+                <img src="{{ url_for('static', filename='cancer_type_icon.png') }}" alt="Cancer Type Icon">
+            </div>
+        </div>
+
+        <div class="step-box" onclick="toggleStep(3)">
+            <h3>Step 3: Choose Analysis Type</h3>
+            <div class="step-content" id="step-3">
+                <p>Select biomarker gene analysis, DNA methylation analysis, or both.</p>
+                <img src="{{ url_for('static', filename='analysis_icon.png') }}" alt="Analysis Icon">
+            </div>
+        </div>
+
+        <div class="step-box" onclick="toggleStep(4)">
+            <h3>Step 4: Select Output Format</h3>
+            <div class="step-content" id="step-4">
+                <p>Choose CSV, visualization, or combined results.</p>
+                <img src="{{ url_for('static', filename='output_icon.png') }}" alt="Output Icon">
+            </div>
+        </div>
+
+        <div class="step-box" onclick="toggleStep(5)">
+            <h3>Step 5: Data Processing</h3>
+            <div class="step-content" id="step-5">
+                <p>ASCEND analyzes the data and identifies significant biomarkers.</p>
+                <img src="{{ url_for('static', filename='processing_icon.png') }}" alt="Processing Icon">
+            </div>
+        </div>
+
+        <div class="step-box" onclick="toggleStep(6)">
+            <h3>Step 6: Review Results</h3>
+            <div class="step-content" id="step-6">
+                <p>Explore detected biomarkers and methylation markers.</p>
+                <img src="{{ url_for('static', filename='results_icon.png') }}" alt="Results Icon">
+            </div>
+        </div>
+
+    </div>
+
+    <section class="cta-section">
+        <h2>Learn More</h2>
+        <p>Visit our GitHub repository for full details:</p>
+        <button onclick="window.open('https://github.com/alperuzun/ASCEND', '_blank')">View on GitHub</button>
     </section>
 
     <footer>
-        <p>&copy; ASCEND. All rights reserved.</p>
+        <p>&copy; 2025 ASCEND. All rights reserved.</p>
     </footer>
+
+    <script>
+        function toggleStep(step) {
+            const content = document.getElementById(`step-${step}`);
+            content.style.display = content.style.display === "block" ? "none" : "block";
+        }
+    </script>
 
 </body>
 </html>

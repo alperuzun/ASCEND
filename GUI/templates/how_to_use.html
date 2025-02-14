@@ -4,44 +4,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>How to Use?</title>
+    <title>How to Use ASCEND?</title>
     <style>
-        /* Include the same styles here, or you can link to a separate CSS file */
+        /* General Styling */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #8f3333;
+            background-color: #1f1f1f;
+            color: #f5f5f5;
         }
+
+        /* Navigation Bar */
         nav {
-            background-color: #333;
-            padding: 10px;
+            background-color: #282828;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
         nav a {
-            color: white;
-            padding: 14px 20px;
             text-decoration: none;
-            text-align: center;
-            display: inline-block;
-        }
-        nav a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-        section {
-            padding: 20px;
-            background-color: #8f3333;
-            text-align: center;
             color: white;
+            font-size: 16px;
+            padding: 10px 15px;
         }
+
+        nav a:hover {
+            background-color: #444;
+            border-radius: 5px;
+        }
+
+        nav img {
+            width: 50px;
+            height: 50px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 10%;
+            background: #8f3333;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #ddd;
+        }
+
+        /* Steps Section */
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 50px auto;
+            max-width: 900px;
+            padding: 20px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            background-color: #282828;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            width: 100%;
+        }
+
+        .step img {
+            width: 60px;
+            height: 60px;
+            margin-right: 20px;
+        }
+
+        .step-content h3 {
+            font-size: 22px;
+            margin: 0;
+            color: #FFFFF;
+        }
+
+        .step-content p {
+            font-size: 16px;
+            margin: 5px 0;
+            color: #ccc;
+        }
+
+        /* Call to Action */
+        .cta-section {
+            text-align: center;
+            padding: 40px 10%;
+            background: #8f3333;
+            margin-top: 40px;
+        }
+
+        .cta-section h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .cta-section button {
+            background-color: #61dafb;
+            color: #1f1f1f;
+            padding: 15px 30px;
+            border: none;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .cta-section button:hover {
+            background-color: #4ca9c9;
+        }
+
+        /* Footer */
         footer {
             text-align: center;
-            padding: 10px;
-            background-color: #333;
+            padding: 15px;
+            background-color: #282828;
             color: white;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
         }
     </style>
 </head>
@@ -49,20 +140,71 @@
 
     <nav>
         <a href="{{ url_for('index') }}">
-            <img src="{{ url_for('static', filename='ASCEND_Logo.png') }}" alt="ASCEND Logo" class="logo" width="50" height="50">
+            <img src="{{ url_for('static', filename='ASCEND_Logo.png') }}" alt="ASCEND Logo">
         </a>
-        <a href="{{ url_for('how_to_use') }}">How to Use?</a>
-        <a href="{{ url_for('how_works') }}">How ASCEND Works</a>
-        <a href="{{ url_for('contact') }}">Contact</a>
+        <div>
+            <a href="{{ url_for('how_to_use') }}">How to Use?</a>
+            <a href="{{ url_for('how_works') }}">How ASCEND Works</a>
+            <a href="{{ url_for('contact') }}">Contact</a>
+        </div>
     </nav>
 
-    <section>
-        <h2>How to Use?</h2>
-        <p>Instructions on how to use the ASCEND application will go here.</p>
+    <section class="hero">
+        <h1>How to Use ASCEND</h1>
+        <p>Follow these simple steps to analyze gene expression data and identify potential biomarkers.</p>
+    </section>
+
+    <div class="steps-container">
+
+        <div class="step">
+            <img src="{{ url_for('static', filename='Upload.png') }}" alt="Upload Icon">
+            <div class="step-content">
+                <h3>Step 1: Upload Your Data</h3>
+                <p>Choose a CSV file containing gene expression data. Ensure that the file follows the required format.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <img src="{{ url_for('static', filename='CancerType.png') }}" alt="Cancer Type Icon">
+            <div class="step-content">
+                <h3>Step 2: Select the Cancer Type</h3>
+                <p>Pick the type of cancer you are analyzing, such as breast cancer or lung cancer.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <img src="{{ url_for('static', filename='OutputFormat.png') }}" alt="Output Icon">
+            <div class="step-content">
+                <h3>Step 3: Select Output Format</h3>
+                <p>Decide if you want a CSV file, graphical visualization, or both.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <img src="{{ url_for('static', filename='ASCENDProcess.png') }}" alt="Processing Icon">
+            <div class="step-content">
+                <h3>Step 4: Let ASCEND Process the Data</h3>
+                <p>ASCEND will analyze the data and provide insights into potential biomarkers.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <img src="{{ url_for('static', filename='ReviewResults.png') }}" alt="Results Icon">
+            <div class="step-content">
+                <h3>Step 5: Review the Results</h3>
+                <p>Explore the results in your preferred format and interpret the findings for further research.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <section class="cta-section">
+        <h2>Ready to Get Started?</h2>
+        <button onclick="window.location.href='/index'">Start Using ASCEND</button>
     </section>
 
     <footer>
-        <p>&copy; ASCEND. All rights reserved.</p>
+        <p>&copy; 2025 ASCEND. All rights reserved.</p>
     </footer>
 
 </body>
