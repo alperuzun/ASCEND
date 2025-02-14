@@ -10,7 +10,7 @@ from sklearn.ensemble import ExtraTreesRegressor
 from sklearn.inspection import permutation_importance
 from sklearn.tree import DecisionTreeRegressor
 
-ge = pd.read_csv(getcwd() + '/data/processed/combined_model_input_dfs/ge.csv')
+ge = pd.read_csv(getcwd() + '/data/processed/combined_model_input_dfs/ge_filtered.csv')
 ge
 
 cancer_target = ge['target']
@@ -18,7 +18,8 @@ ge.drop(['target'], axis=1, inplace=True)
 
 X_train, X_test, y_train, y_test = train_test_split(ge, cancer_target, train_size=0.7, random_state=1)
 
-clf = MLPClassifier(random_state=1, max_iter=10)
+#Experiment with max_iter parameter (too low = not enough optimization)
+clf = MLPClassifier(random_state=1, early_stopping=True, verbose=True, n_iter_no_change=20, validation_fraction=0.2, max_iter=450)
 clf = clf.fit(X_train, y_train)
 preds = clf.predict(X_test)
 accuracy_score(y_test, preds)
@@ -29,7 +30,7 @@ response = requests.get(url)
 content = response.content.decode('utf-8')
 df = pd.read_csv(io.StringIO(content), sep="\t", skiprows=1)
 gene_key = df[4:]['gene_id']
-
+gene_key
 
 coeffs = clf.coefs_[0]
 df_coeffs = pd.DataFrame(coeffs)
@@ -37,7 +38,8 @@ mean_coeffs = df_coeffs.mean(axis=1)
 abs_mean_coeffs = mean_coeffs.abs()
 df = pd.DataFrame(abs_mean_coeffs.sort_values(ascending=False))
 df.to_csv(getcwd() + '/results/raw/abs_gene_coeffs.csv')
-
+gene_key
+df
 df1 = pd.read_csv(getcwd() + '/results/raw/abs_gene_coeffs.csv')
 
 gene_key = gene_key.reset_index()['gene_id']
