@@ -1,0 +1,15 @@
+flask
+os
+time
+plotly
+networkx
+datetime
+pandas
+requests
+json
+io
+sklearn
+numpy
+subprocess
+shutil
+PyQt6
