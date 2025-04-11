@@ -6,7 +6,7 @@ import networkx as nx
 from datetime import timedelta
 
 app = Flask(__name__)
-# app.secret_key = 'key'
+app.secret_key = 'key'
 
 # Set session timeout (e.g., 20 minutes)
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=20)
@@ -363,4 +363,4 @@ def run_pipeline(filepath):
     print(f"Processing complete for: {filepath}")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=8000)
