@@ -31,7 +31,7 @@ In order to run the model, you will need gene expression data in the format of a
 
 
 # Authors
-This project was developed by Jay Ananth and Dr. Alper Uzun in the Uzun Lab at Brown University.
+This project was developed by Jay Ananth (student-intern) and Dr. Alper Uzun (PI) in the Genomics and Machine Intelligence Lab Lab at Brown University.
 
 
 # Contact
